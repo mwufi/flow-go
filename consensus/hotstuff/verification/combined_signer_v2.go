@@ -36,7 +36,7 @@ func NewCombinedSignerV2(
 	staking module.AggregatingSigner,
 	thresholdVerifier module.ThresholdVerifier,
 	merger module.Merger,
-	thresholdSignerStore module.ThresholdSignerStore,
+	thresholdSignerStore module.ThresholdSignerStoreV2,
 	signerID flow.Identifier) *CombinedSignerV2 {
 
 	sc := &CombinedSignerV2{
@@ -122,5 +122,5 @@ func (c *CombinedSignerV2) genSigData(block *model.Block) ([]byte, error) {
 		return nil, fmt.Errorf("could not generate staking signature: %w", err)
 	}
 
-	return signature.EncodeSingleSig(hotstuff.SigTypeStaking, stakingSig)
+	return signature.EncodeSingleSig(hotstuff.SigTypeStaking, stakingSig), nil
 }
